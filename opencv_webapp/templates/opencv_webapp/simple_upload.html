@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Opencv-Django</title>
+  </head>
+  <body>
+    <h1>Upload your image file.</h1>
+
+<!-- post요청보내보자 -->
+    <form method="POST" enctype="multipart/form-data">
+      <!-- 액션없어 넣어줘도 되는데 유알엘 다른걸로 만들어주면 요청처리부분을 별개로 떼낼수있어  -->
+      <!-- enctype multipart/:인코딩 타입 / 여러개의 부분으로 나눠서 날아간다는것임-->
+      {% csrf_token %}
+      {{ form.as_p }}
+      <!-- 클래스 따로 넣어서 적용해도됨 -->
+      <button type="submit">Upload</button>
+    </form>
+
+    {% if uploaded_file_url %}
+      <img src="{{ uploaded_file_url }}">
+      <!-- 유저한테 받은이미지 보여줄수있어  -->
+      <p>Uploaded file @ : <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+    {% endif %}
+
+    <p><a href="{% url 'opencv_webapp:simple_upload' %}">Return to home</a></p>
+    <!-- url reversing -->
+  </body>
+</html>
